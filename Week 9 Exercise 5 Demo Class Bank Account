@@ -1,0 +1,46 @@
+package BankAccount;
+
+public class BankAccountDemo
+{
+    public static void main (String[] args) {
+
+        BankAccount bankAcc = new BankAccount("6982534" , "Josh Williams" , 0.00 , false);
+        System.out.println("Creating account...");
+        System.out.println(bankAcc.toString());
+
+
+        // Here I am testing that if the user inputs an invalid amount, the program will send an error message and quit, otherwise it will deposit the amount.
+        if(!bankAcc.deposit(100.00)) {
+            System.out.println("Invalid amount, please deposit an amount more than £0.00");
+            System.exit(0);
+        }
+        else {
+
+            System.out.println("Depositing £10.00");
+            System.out.println(bankAcc.getBalance());
+            System.out.println(bankAcc.toString());
+        }
+
+        // Here I am testing that if the user inputs an invalid amount, the program will send an error message and quit, otherwise it will withdraw the amount.
+        if(!bankAcc.withdraw(30.00)) {
+            System.out.println("Not enough funds to withdraw, enter a different amount");
+            System.exit(0);
+        }
+        else {
+
+            System.out.println("Withdrawing £30.00");
+            System.out.println("Balance is now " + bankAcc.getBalance());
+            System.out.println(bankAcc.toString());
+        }
+
+        // Here I am testing that the inputted interest rate will be added to the balance. The program will then get the balance and print it out.
+        bankAcc.addInterest(-10);
+        System.out.println("Adding interest...");
+        System.out.println("Balance is now " + bankAcc.getBalance());
+        System.out.println(bankAcc.toString());
+
+
+
+
+    }
+}
