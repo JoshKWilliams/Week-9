@@ -1,0 +1,156 @@
+package BankAccount;
+
+public class BankAccount {
+
+    private String accountNumber;
+    private String accountHolder;
+    private double balance;
+    private boolean hasOverdraft;
+
+    public BankAccount(String accountNumber, String accountHolder, boolean hasOverdraft) {
+        this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
+        this.balance = 0.0;
+        this.hasOverdraft = hasOverdraft;
+    }
+
+    public BankAccount(String accountNumber, String accountHolder, double balance, boolean hasOverdraft) {
+        this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
+        this.balance = balance;
+        this.hasOverdraft = hasOverdraft;
+    }
+
+    public String getAccountNumber () {
+        return accountNumber;
+    }
+
+    public void setAccountNumber (String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getAccountHolder () {
+        return accountHolder;
+    }
+
+    public void setAccountHolder (String accountHolder) {
+        this.accountHolder = accountHolder;
+    }
+
+    public double getBalance () {
+        return balance;
+    }
+
+    public void setBalance (double balance) {
+        this.balance = balance;
+    }
+
+    public boolean hasOverdraft ()
+    {
+        if (hasOverdraft = true) {
+            return hasOverdraft;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void setHasOverdraft (boolean hasOverdraft) {
+        this.hasOverdraft = hasOverdraft;
+    }
+
+    // I have changed this method by implementing an if statement to check if the user is depositing more than £0.
+    public boolean deposit (double amount)
+    {
+
+        if (amount > 0.00)
+        {
+            this.balance += amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // I have changed this method by implementing an if statement. It first checks if the amount withdrawn is more than the balance, and then if the account has an overdraft.
+    // If the account doesn't have an overdraft, it will return false.
+    public boolean withdraw (double amount) {
+
+        if (amount > balance && hasOverdraft)
+        {
+            this.balance -= amount;
+            return true;
+        }
+        else if (amount < balance)
+        {
+            return true;
+        }
+        else {
+            return false;
+
+        }
+
+    }
+
+    // I have changed this method by implementing an if statement saying if the interest rate is below 0, change it to 0.
+    public void addInterest (int interestRate) {
+        if (interestRate <= 0)
+            interestRate = 0;
+        else
+            this.balance += this.balance * (interestRate / 100.0);
+    }
+
+    @Override
+    public String toString () {
+        return "BankAccount{" +
+                "accountNumber='" + accountNumber + '\'' +
+                ", accountHolder='" + accountHolder + '\'' +
+                ", balance=" + balance +
+                ", hasOverdraft=" + hasOverdraft +
+                '}';
+    }
+
+
+    public static void main (String[] args) {
+
+        BankAccount bankAcc = new BankAccount("6982534" , "Josh Williams" , 0.00 , false);
+        System.out.println("Creating account...");
+        System.out.println(bankAcc.toString());
+
+
+        if(!bankAcc.deposit(100.00)) {
+            System.out.println("Invalid amount, please deposit an amount more than £0.00");
+            System.exit(0);
+        }
+        else {
+
+            System.out.println("Depositing £10.00");
+            System.out.println(bankAcc.getBalance());
+            System.out.println(bankAcc.toString());
+        }
+
+        if(!bankAcc.withdraw(30.00)) {
+            System.out.println("Not enough funds to withdraw, enter a different amount");
+            System.exit(0);
+        }
+        else {
+
+            System.out.println("Withdrawing £30.00");
+            System.out.println("Balance is now " + bankAcc.getBalance());
+            System.out.println(bankAcc.toString());
+        }
+
+        bankAcc.addInterest(-10);
+        System.out.println("Adding interest...");
+        System.out.println("Balance is now " + bankAcc.getBalance());
+        System.out.println(bankAcc.toString());
+
+
+
+
+    }
+
+}
